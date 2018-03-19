@@ -1,7 +1,7 @@
 """
 
 """
-from src.logic.player import Player
+from logic.player import Player
 
 
 class PlayerIA(Player):

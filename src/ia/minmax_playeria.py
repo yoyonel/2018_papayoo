@@ -1,7 +1,7 @@
 """
 
 """
-from src.ia.playeria import PlayerIA
+from ia.playeria import PlayerIA
 
 
 class MinMaxPlayerIA(PlayerIA):

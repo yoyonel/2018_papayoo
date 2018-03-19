@@ -4,13 +4,13 @@
 import logging
 import random
 #
-from src.ia.random_playeria import RandomPlayerIA
-from src.ia.minmax_playeria import MinMaxPlayerIA
-from src.logic.card import Cards
-from src.logic.card import CardSuit
-from src.logic.card import CardPlayed
-from src.logic.card import compute_points
-from src.logic.card import DealingCards
+from ia.random_playeria import RandomPlayerIA
+from ia.minmax_playeria import MinMaxPlayerIA
+from logic.card import Cards
+from logic.card import CardSuit
+from logic.card import CardPlayed
+from logic.card import compute_points
+from logic.card import DealingCards
 
 
 logger = logging.getLogger(__name__)

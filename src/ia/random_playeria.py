@@ -3,7 +3,7 @@
 """
 import random
 #
-from src.ia.playeria import PlayerIA
+from ia.playeria import PlayerIA
 
 
 class RandomPlayerIA(PlayerIA):
