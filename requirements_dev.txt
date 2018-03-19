@@ -1,0 +1,14 @@
+-r requirements.txt
+
+# grpcio-tools==1.7.3
+# mock
+# mongomock
+# objgraph
+# pytest
+# pytest-mock
+# pytest-mongo
+# pytest-async-mongodb
+# pytest-asyncio
+
+# https://pythonhosted.org/Pympler/
+# pympler
