@@ -2,6 +2,8 @@
 
 """
 from enum import Enum
+#
+from logic.constants import *
 
 
 class CardSuit(Enum):
@@ -27,29 +29,39 @@ class CardSuit(Enum):
 
     @staticmethod
     def to_str(cs):
+        """
+        https://en.wikipedia.org/wiki/Playing_cards_in_Unicode
+
+        :param cs:
+        :return:
+        """
         return {
-            CardSuit.SPADE: 'spade',
-            CardSuit.HEART: 'heart',
-            CardSuit.DIAMOND: 'diamond',
-            CardSuit.CLUB: 'club',
-            CardSuit.PAYOO: 'payoo'
+            CardSuit.SPADE: '♠',
+            CardSuit.HEART: '♥',
+            CardSuit.DIAMOND: '♦',
+            CardSuit.CLUB: '♣',
+            CardSuit.PAYOO: '🃟'
         }[cs]
 
 
 class Cards(object):
     def __init__(self, suit, number):
         assert (isinstance(suit, CardSuit))
-        assert (1 <= number <= 20)
+        assert (
+                min(MIN_NUMBER_FOR_PAYOO_CARDS, MIN_NUMBER_FOR_NUMBERED_CARDS)
+                <= number <=
+                max(MAX_NUMBER_FOR_NUMBERED_CARDS, MAX_NUMBER_FOR_PAYOO_CARDS)
+        )
         self._suit = suit
         self._number = number
 
     def __int__(self):
-        return (CardSuit.to_int(self.suit) - 1) * 10 + self._number
+        return (CardSuit.to_int(self.suit) - 1) * MAX_NUMBER_FOR_NUMBERED_CARDS + self._number
 
     def __str__(self):
-        return "(suit={}, number={})".format(
+        return "{}{}".format(
+            self._number,
             CardSuit.to_str(self._suit),
-            self._number
         )
 
     def __repr__(self):
@@ -91,9 +103,9 @@ class Cards(object):
 
         :return:
         """
-        points = 0
+        points = POINTS_FOR_NUMBERED_CARDS
         if papayoo_card and self == papayoo_card:
-            points = 40
+            points = POINTS_FOR_PAPAYOO_CARD
         elif self.suit == CardSuit.PAYOO:
             points = self.number
         return points
@@ -101,13 +113,13 @@ class Cards(object):
 
 class CardsNumbered(Cards):
     def __init__(self, suit, number):
-        assert (1 <= number <= 10)
+        assert (MIN_NUMBER_FOR_NUMBERED_CARDS <= number <= MAX_NUMBER_FOR_NUMBERED_CARDS)
         super().__init__(suit, number)
 
 
 class CardsPayoo(Cards):
     def __init__(self, number):
-        assert (1 <= number <= 20)
+        assert (MIN_NUMBER_FOR_PAYOO_CARDS <= number <= MAX_NUMBER_FOR_PAYOO_CARDS)
         super().__init__(CardSuit.PAYOO, number)
 
 
@@ -117,7 +129,7 @@ class DiscardCards(object):
 
         :param nb_cards:
         """
-        assert (3 <= nb_cards <= 5)
+        assert (MIN_DISCARDS_CARDS <= nb_cards <= MAX_DISCARDS_CARDS)
         self._nb_cards = nb_cards
 
     def __str__(self):
@@ -129,8 +141,7 @@ class DiscardCards(object):
 
 
 class CardsToRemoveBeforePlaying(object):
-    def __init__(self,
-                 cards_to_remove):
+    def __init__(self, cards_to_remove):
         """
 
         :param cards_to_remove:
@@ -152,7 +163,7 @@ class CardPlayed(Cards):
         return self._player_id
 
     def __repr__(self):
-        return "{} - {}".format(self.player_id, super().__repr__())
+        return "({}, {})".format(self.player_id, super().__repr__())
 
 
 def compute_points(cards_played, papayoo_card):

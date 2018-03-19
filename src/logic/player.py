@@ -1,6 +1,7 @@
 """
 
 """
+from logic.constants import MAX_PLAYERS
 
 
 class Player(object):
@@ -12,7 +13,7 @@ class Player(object):
         :param player_id:
         :param player_name:
         """
-        assert (0 <= player_id <= 7)
+        assert (0 <= player_id <= MAX_PLAYERS-1)
         self._player_id = player_id
         if player_name:
             self._player_name = player_name

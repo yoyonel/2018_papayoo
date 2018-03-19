@@ -68,6 +68,7 @@ class MinMaxPlayerIA(PlayerIA):
         """
         cards_sorted = self._sort_by_points_and_numbers()
 
+        # First card ?
         if len(cards_already_played) == 0:
             # get min card
             play_card = cards_sorted[-1]    # min

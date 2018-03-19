@@ -9,6 +9,8 @@ from logic.card import CardsPayoo
 from logic.card import CardSuit
 from logic.card import DiscardCards
 
+from logic.constants import *
+
 
 class DealingCards(object):
     """
@@ -19,7 +21,7 @@ class DealingCards(object):
 
         :param nb_players:
         """
-        assert (3 <= nb_players <= 8)
+        assert (MIN_PLAYERS <= nb_players <= MAX_PLAYERS)
         #
         self._nb_players = nb_players
         #
@@ -38,9 +40,12 @@ class DealingCards(object):
         self._cards = [
             CardsNumbered(suit, number)
             for suit in CardSuit
-            for number in range(1, 11)
+            for number in range(MIN_NUMBER_FOR_PAYOO_CARDS, MAX_NUMBER_FOR_NUMBERED_CARDS+1)
         ]
-        self._cards += [CardsPayoo(number) for number in range(11, 21)]
+        self._cards += [
+            CardsPayoo(number)
+            for number in range(MAX_NUMBER_FOR_NUMBERED_CARDS+1, MAX_NUMBER_FOR_PAYOO_CARDS+1)
+        ]
         #
         self._cards = [
             card
@@ -76,7 +81,8 @@ class DealingCards(object):
         cur_id_card = 0
         three_times_nb_cards = self._number_of_cards_per_player.three_times
         nb_times_one_card = self._number_of_cards_per_player.one_card
-        for _ in range(3):
+        nb_times_three_cards = NB_TIMES_THREE_CARDS
+        for _ in range(nb_times_three_cards):
             for id_player in range(self._nb_players):
                 deal[id_player].extend(self._cards[cur_id_card:cur_id_card + three_times_nb_cards])
                 cur_id_card += three_times_nb_cards
@@ -96,9 +102,9 @@ class NumberOfCardsPerPlayer(object):
                  number_of_players,
                  three_times,
                  one_card):
-        assert (3 <= number_of_players <= 8)
-        assert (2 <= three_times <= 6)
-        assert (0 <= one_card <= 2)
+        assert (MIN_PLAYERS <= number_of_players <= MAX_PLAYERS)
+        assert (MIN_CARDS_FOR_DEALING_THREE_TIMES <= three_times <= MAX_CARDS_FOR_DEALING_THREE_TIMES)
+        assert (MIN_LOOPS_FOR_DEALING_ONE_CARD <= one_card <= MAX_LOOPS_FOR_DEALING_ONE_CARD)
         if number_of_players < 7:
             self._total_cards = 60
         else:

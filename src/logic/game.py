@@ -68,9 +68,10 @@ def play(nb_players):
                 player_id = (player_id + id_player_win) % nb_players
                 card_played = players[player_id].play(cards_played)
                 logger.info(
-                    "{} - {}".format(
+                    "{} - {}{}".format(
                         players[player_id].name,
-                        card_played
+                        '🃏' if card_played == papayoo_card else '',
+                        card_played,
                     )
                 )
                 cards_played.append(CardPlayed(player_id, card_played))
