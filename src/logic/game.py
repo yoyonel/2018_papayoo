@@ -10,7 +10,7 @@ from logic.card import Cards
 from logic.card import CardSuit
 from logic.card import CardPlayed
 from logic.card import compute_points
-from logic.card import DealingCards
+from logic.deck import DealingCards
 
 
 logger = logging.getLogger(__name__)
