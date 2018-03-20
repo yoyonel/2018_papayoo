@@ -140,19 +140,6 @@ class DiscardCards(object):
         return self._nb_cards
 
 
-class CardsToRemoveBeforePlaying(object):
-    def __init__(self, cards_to_remove):
-        """
-
-        :param cards_to_remove:
-        """
-        assert (isinstance(cards_to_remove, set))
-        self._cards_to_remove = cards_to_remove
-
-    def __str__(self):
-        return "cards_to_remove={}".format(self._cards_to_remove)
-
-
 class CardPlayed(Cards):
     def __init__(self, player_id, card):
         super().__init__(card.suit, card.number)
@@ -163,7 +150,7 @@ class CardPlayed(Cards):
         return self._player_id
 
     def __repr__(self):
-        return "({}, {})".format(self.player_id, super().__repr__())
+        return "(P{}, {})".format(self.player_id, super().__repr__())
 
 
 def compute_points(cards_played, papayoo_card):

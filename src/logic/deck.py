@@ -25,7 +25,7 @@ class DealingCards(object):
         #
         self._nb_players = nb_players
         #
-        self._cards_to_remove_before_playing = builder_cards_to_remove_before_players(nb_players)
+        self._cards_to_remove_before_playing = builder_cards_to_remove_from_deck(nb_players)
         self._number_of_cards_per_player = builder_number_of_cards_per_player(nb_players)
         self._discard = builder_discard_cards(nb_players)
         #
@@ -168,7 +168,7 @@ def builder_number_of_cards_per_player(nb_players):
     }[nb_players]
 
 
-def builder_cards_to_remove_before_players(nb_players):
+def builder_cards_to_remove_from_deck(nb_players):
     """
 
     :param nb_players:
